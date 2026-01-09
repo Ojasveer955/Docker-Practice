@@ -1,7 +1,12 @@
-FROM nginx:alpine
+FROM python:3.11-alpine
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
-COPY ./html/index.html .
+COPY /webpage/requirements.txt .
+RUN pip install -r requirements.txt
 
-EXPOSE 80
+COPY ./webpage/app.py .
+
+CMD ["python", "app.py"]
+
+EXPOSE 5000
